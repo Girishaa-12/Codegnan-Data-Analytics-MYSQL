@@ -1,0 +1,55 @@
+DAY-2
+-----------------
+what is data, field, record, database?
+-------------------------------------------------
+
+DATA: raw facts or figures without context.
+example: 101,ravi,34,vsp
+
+Field: smallest unit of data in a database(column/attribute)
+example: Employee Name, Employee Id, Employee salary, Employee Address
+
+Record: collection of related field(row/tuple)
+example: (111,ravi,23)
+
+Database: organized collection of related records stored together.
+example: an employee database containing all the employee related information.
+
+client-server:
+--------------------
+client : the role of the client server architecture is to send the request to the server and to get response from the server.
+
+Server : server is a software the role of the server in client - server architecture to take request from the client, if the request is valid request it will generate some
+response we can hand over the response to client, if client request is not a valid request it will raise an error.
+
+protocol: it has to set of rules and regulations, the role of the role of the protocol in client-server architecture is to send request from client to server.
+
+Data Models in DBMS:
+--------------------
+a data model defines how data is stored, organized and manipulated in a database.
+
+1.physical data model: it describes how the data is physically stored in storage devices. used by Database administrators.
+2.logical data model: defines the structure of data (entities, attributes, relationships) independent of physical storage areas.
+used by developers and data architecture
+3.Hierarchal data model: data is present in tree structure(parent child relationship)
+used by company --> departments-->employee
+4.Network data model: data is represent as graph with records(nodes) and relationships(edges)
+example: student enrolled in multiple courses, courses tough by multiple professors
+5.Relatinal data models(RDMS): data is stored in tables(relations) with rows(tuples) and columns(attributes)
+example:
+student(id, name, marks, age, department)
+departments(dept_id, dept_name)
+6.Enitity relationship(E-R Models): a conceptual model that shows entitles(things),attributes (properties) and relationships
+
+MYSQL installation process
+----------------------------------
+https://
+after installation to go location 
+
+just double click---> choose yes option
+4.option 
+server
+client
+full
+custom--->choose custom option ---> choose next button
+it will show available 
