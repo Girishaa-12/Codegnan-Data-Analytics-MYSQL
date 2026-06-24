@@ -1,0 +1,263 @@
+Day-3
+------------------
+SQL Identifiers
+-------------------------------
+Identifiers are the names used to identify database objects.
+Database names, Table names, Column names, View names, Index names, Constraints, Triggers, Stored procedures.
+While we are declaring an identifiers we have to fallow some rules and regulations.
+Rules:
+1.To only allowed characters to declare identifiers can contain a-z or A-Z or 0-9, _, $
+2.Must be begin with a letter or _ symbol.
+3.We can't declare identifiers with reserved keywords.
+4.Spaces are not considered identifiers.
+5.identifiers are case sensitive.
+6.Max length to declare identifiers are 15 characters.
+
+SQL(Structured Query Language):
+-------------------------------
+Structured Query language(SQL) is a standardized programming language specially designed for managing and manipulation relational databases. it provides declarative syntax that allows users to define what data they want retrieve, insert update or delete without specifying exactly how executes these operations.
+
+Types of SQL commands:
+----------------------
+DDL(Data Definition Language)----> CREATE, ALTER, DROP, TRUNCATE, RENAME
+DML(Data Manipulation Language)---->INSERT, UPDATE, DELETE, LOCK
+DCL(Data Control Language)---->GRANT, REVOKE
+TCL(Transaction Control Language)---->COMMIT, ROLEBACK, SAVEPOINT
+DQL(Data Query Language)---->SELECT
+--------------------------------------------------------------------------------------------------------------------------------------
+DDL(Data Definition Language)
+-----------------------------
+CREATE-->By using this command to create a new databases, tables, indexes, trigger, stored procedures etc.
+
+Syntax: create database database-name
+Example: create database DA3;
+create table
+-------------------
+create table table-name(
+column-name data-type size constraint, (constraint is optional)
+column-name data-type size constraint,
+-------------------------------------------
+-------------------------------------------
+);
+
+ALTER-->By using this alter command to modify the structure of an existing database object.
+
+DROP-->By using this command we can drop existing database object or table permanently.
+TRUNCATE--> By using this command to delete all rows present in a table.
+RENAME-->It is used to rename the table names or column names etc...
+
+DML(Data Manipulation Language)
+INSERT--> By using this command they can insert some into a table.
+UPDATE-->By using this command we can update the existing records based on some conditions.
+DELETE-->By using this command we can delete the existing table records based on some conditions.
+LOCK-->It can be used to control access to a resource ensuring the only one transaction can access it at a time of preventing conflicts.
+DCL(Data Control Language)
+GRANT-->This command is used to give specific permission to a user in database this permission might be include the ability to select or update or delete data as we as create or drop tables.
+REVOKE--> This command is used to take away granted permission from the user.
+TCL(Transaction Control Language)
+COMMIT-->This command is used to permanently save the changes made during the current transaction. once transaction is committed it changes became permanent and visible to other transactions.
+ROLLBACK--> if an error occurs or if transaction needs to be canceled for any reason rollback is issued to revert the database.
+in simple it is used to undo operations changes made during the current transactions.
+SAVEPOINT-->It is used to set a point within a transaction who which you can later rollback.
+DQL(Data Query Language)
+SELECT-->This command is used to retrieve data from one or more tables in a database.
+
+-----------------------------------------------------------------------
+Data Types in SQL (MySQL)
+-----------------------------------
+INT ->
+NUMERIC ->
+CHAR -> Fixed-length string.
+Example: Gender ('M', 'F').
+VARCHAR –> Variable-length string.
+Example: Name ('Ravi', 'Girisha').
+TEXT –> Stores large text data (up to 65,535 characters).
+Example: Comments, descriptions.
+TINYTEXT –> Small text data (up to 255 characters).
+Example: Short notes.
+MEDIUMTEXT –> Medium-sized text data (up to 16 million characters).
+Example: Articles, blogs.
+LONGTEXT –> Very large text data (up to 4 GB).
+Example: Books, large documents.
+ENUM –> Stores one value from a predefined list.
+Example: ENUM('Male','Female','Other').
+SET –> Multiple values from a list
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| da3                |
+| employees          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> drop da3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'da3' at line 1
+mysql> drop database da3;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> drop database employees;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> sow databases
+    -> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sow databases
+show databases' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database da;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| da                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use da;
+Database changed
+mysql> create table employee(
+    -> empID char(5)
+    -> fname varchar(100),
+    -> iname varchar(30),
+    -> age int,
+    -> doj date,
+    -> address tinytext,
+    -> dept varchar(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fname varchar(100),
+iname varchar(30),
+age int,
+doj date,
+address tinytext,
+dept' at line 3
+mysql> fname varchar(100),
+    -> show tables;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fname varchar(100),
+show tables' at line 1
+mysql> create table employee(
+    -> empID char(5)
+    -> fname varchar(100),
+    -> iname varchar(30),
+    -> age int,
+    -> doj date,
+    -> address tinytext,
+    -> dept varchar(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fname varchar(100),
+iname varchar(30),
+age int,
+doj date,
+address tinytext,
+dept' at line 3
+mysql> create table employee(
+    -> empid char(5
+    -> 
+    -> Terminal close -- exit!
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| da                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use da;
+Database changed
+mysql> create table employee(
+    -> empid varchar(5),
+    -> Terminal close -- exit!
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| da                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use da;
+Database changed
+mysql> create table employee(
+    -> empid char(5),
+    -> fname varchar(100),
+    -> lname varchar(50),
+    -> age int,
+    -> doj date,
+    -> address tinytext,
+    -> dept varchar(20)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> to show the table description
+    -> desc employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to show the table description
+desc employee' at line 1
+mysql> Desc employee;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| empid   | char(5)      | YES  |     | NULL    |       |
+| fname   | varchar(100) | YES  |     | NULL    |       |
+| lname   | varchar(50)  | YES  |     | NULL    |       |
+| age     | int(11)      | YES  |     | NULL    |       |
+| doj     | date         | YES  |     | NULL    |       |
+| address | tinytext     | YES  |     | NULL    |       |
+| dept    | varchar(20)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> show columns from employee;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| empid   | char(5)      | YES  |     | NULL    |       |
+| fname   | varchar(100) | YES  |     | NULL    |       |
+| lname   | varchar(50)  | YES  |     | NULL    |       |
+| age     | int(11)      | YES  |     | NULL    |       |
+| doj     | date         | YES  |     | NULL    |       |
+| address | tinytext     | YES  |     | NULL    |       |
+| dept    | varchar(20)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> show row from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'row from employee' at line 1
+mysql> select * from employee;
+Empty set (0.01 sec)
+
+mysql> terminal close--exit!
+    -> exit
+    -> exit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'terminal close--exit!
+exit
+exit' at line 1
+mysql> quit ;
