@@ -1,0 +1,537 @@
+DML
+===
+ 
+approch-1
+================
+insert:
+=======
+
+insert into table-name(column1,column2..........column-n) values(value1,value2,..........value3) 
+
+mysql> --INSERT
+    -> Insert
+    -> ^C
+mysql> use da;
+Database changed
+mysql> show tables;
++--------------+
+| Tables_in_da |
++--------------+
+| employee     |
++--------------+
+1 row in set (0.05 sec)
+
+mysql> desc employee;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| empid   | char(5)      | YES  |     | NULL    |       |
+| fname   | varchar(100) | YES  |     | NULL    |       |
+| lname   | varchar(50)  | YES  |     | NULL    |       |
+| age     | int(11)      | YES  |     | NULL    |       |
+| doj     | date         | YES  |     | NULL    |       |
+| address | tinytext     | YES  |     | NULL    |       |
+| dept    | varchar(20)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> insert into employee(empid,fname,lname,age,doj,address,dept)
+    -> values
+    -> ('E001','Shaa,'Girishaa',22,'2026-11-05','DA');
+    '> ('E001','Shaa,'Girishaa',22,'2026-11-05',
+    -> ^C
+mysql> insert into employee(empid,fname,lname,age,doj,address,dept)
+    ->     -> values
+    -> ^C
+mysql> insert into employee(empid,fname,lname,age,doj,address,dept)
+    -> values
+    -> ('E001','Girishaa','sha',22,'2022-09-22','vsp','DA');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee;
++-------+----------+-------+------+------------+---------+------+
+| empid | fname    | lname | age  | doj        | address | dept |
++-------+----------+-------+------+------------+---------+------+
+| E001  | Girishaa | sha   |   22 | 2022-09-22 | vsp     | DA   |
++-------+----------+-------+------+------------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee(empid,fname,lname,age,doj,address,dept)
+    -> values
+    -> ('E002','Mahesh','Mahi',21,'2022-03-12','vsp','DA'),
+    -> ('E003',Aswini','Ashu',23,'2022-05-15','vsp','DA');
+    '> ^C
+mysql> insert into employee(empid,fname,lname,age,doj,address,dept)
+    -> values
+    ->  ('E002','Mahesh','Mahi',21,'2022-03-12','vsp','DA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> ('E003',Aswini','Ashu',23,'2022-05-15','vsp','DA');
+    '> ('E003','Aswini','Ashu',23,'2022-05-15','vsp','DA');
+    '> ('E003','Aswini','Ashu',23,'2022-05-15','vsp','DA');
+    '> ^C
+mysql> insert into employee(empid,fname,lname,age,doj,address,dept)
+    -> values
+    -> ('E003','Aswini','Ashu',23,'2022-05-15','vsp','DA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> 
+mysql> select * from employee;
++-------+----------+-------+------+------------+---------+------+
+| empid | fname    | lname | age  | doj        | address | dept |
++-------+----------+-------+------+------------+---------+------+
+| E001  | Girishaa | sha   |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi  |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu  |   23 | 2022-05-15 | vsp     | DA   |
++-------+----------+-------+------+------------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| da                 |
+| da3                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use company;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| company_staff     |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> desc company_staff;
++-----------------+---------------------------------------------+------+-----+---------+-------+
+| Field           | Type                                        | Null | Key | Default | Extra |
++-----------------+---------------------------------------------+------+-----+---------+-------+
+| company_name    | varchar(60)                                 | YES  |     | NULL    |       |
+| empid           | int(11)                                     | YES  |     | NULL    |       |
+| age             | tinyint(4)                                  | YES  |     | NULL    |       |
+| experience      | smallint(6)                                 | YES  |     | NULL    |       |
+| employeename    | varchar(95)                                 | YES  |     | NULL    |       |
+| qualification   | varchar(80)                                 | YES  |     | NULL    |       |
+| address         | tinytext                                    | YES  |     | NULL    |       |
+| salary          | decimal(19,12)                              | YES  |     | NULL    |       |
+| department      | enum('hr','it','sales','finance','support') | YES  |     | NULL    |       |
+| status          | varchar(20)                                 | YES  |     | NULL    |       |
+| skills          | set('java','python','sql','excel')          | YES  |     | NULL    |       |
+| last_updated    | varchar(70)                                 | YES  |     | NULL    |       |
+| date_of_joining | date                                        | YES  |     | NULL    |       |
+| email           | varchar(100)                                | YES  |     | NULL    |       |
++-----------------+---------------------------------------------+------+-----+---------+-------+
+14 rows in set (0.00 sec)
+
+mysql> insert into company_staff(company_name,empid,age,experience,employeename,qualification,address,salary,department,status,skills,last_updated,date_of_joining,email)
+    -> values
+    -> ('Amazon','E001',23,2,'shaa','B.tech','vsp','45.000','it','active','2026-05-12','2020-03-12','shaa@gmail.com');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> ('Amazon','E001',23,2,'shaa','B.tech','vsp','45.000','it','active','2026-05-12','2020-03-12','shaa@gmail.com');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Amazon','E001',23,2,'shaa','B.tech','vsp','45.000','it','active','2026-05-12','' at line 1
+mysql> use database da;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use da;
+Database changed
+mysql> desc employee;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| empid   | char(5)      | YES  |     | NULL    |       |
+| fname   | varchar(100) | YES  |     | NULL    |       |
+| lname   | varchar(50)  | YES  |     | NULL    |       |
+| age     | int(11)      | YES  |     | NULL    |       |
+| doj     | date         | YES  |     | NULL    |       |
+| address | tinytext     | YES  |     | NULL    |       |
+| dept    | varchar(20)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+-------+------+------------+---------+------+
+| empid | fname    | lname | age  | doj        | address | dept |
++-------+----------+-------+------+------------+---------+------+
+| E001  | Girishaa | sha   |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi  |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu  |   23 | 2022-05-15 | vsp     | DA   |
++-------+----------+-------+------+------------+---------+------+
+3 rows in set (0.00 sec)
+
+approch-2
+==================
+here we give table name 
+
+mysql> insert into employee values
+    -> ('E004','Shaa','honey',20,'2022-09-12','vsp','PS');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+-------+------+------------+---------+------+
+| empid | fname    | lname | age  | doj        | address | dept |
++-------+----------+-------+------+------------+---------+------+
+| E001  | Girishaa | sha   |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi  |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu  |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | honey |   20 | 2022-09-12 | vsp     | PS   |
++-------+----------+-------+------+------------+---------+------+
+4 rows in set (0.00 sec)
+
+approach - 3
+=================
+if we want to leave the data for columns for example there are 6 columns but uh want only for 5 then we use this approach for using an particular columns
+mysql> --insert into table-name(particular coulumns you required) values(particular values)
+    -> ^C
+mysql> insert into employee(fname,lname,doj,address,dept)
+    -> values
+    -> ('Girishaa','Thangavalu','2004-05-12','vsp','DA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E001  | Girishaa | sha        |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | honey      |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
++-------+----------+------------+------+------------+---------+------+
+5 rows in set (0.01 sec)
+mysql> insert into employee(empid,fname,age,address,dept)
+    -> values
+    -> ('E006','Nitish',17,'Pune','CSE');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E001  | Girishaa | sha        |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | honey      |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | CSE  |
++-------+----------+------------+------+------------+---------+------+
+6 rows in set (0.00 sec)
+
+approch-4
+==============
+insert into table-name set column-name=value, column-name=value,......column-n=values;
+mysql> insert into employee set empid='E007',fname='sastiwka',lname='sas',age=21,doj='2024-06-14',address='oddisa',dept='IT';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E001  | Girishaa | sha        |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | honey      |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | CSE  |
+| E007  | sastiwka | sas        |   21 | 2024-06-14 | oddisa  | IT   |
++-------+----------+------------+------+------------+---------+------+
+7 rows in set (0.00 sec)
+
+update
+==========mysql> update table employee set lname='girishaa' where fname=Shaa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table employee set lname='girishaa' where fname=Shaa' at line 1
+mysql> update table employee set lname='girishaa' where fname='Shaa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table employee set lname='girishaa' where fname='Shaa'' at line 1
+mysql> update employee set lname='girishaa' where fname='Shaa';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E001  | Girishaa | sha        |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | girishaa   |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | CSE  |
+| E007  | sastiwka | sas        |   21 | 2024-06-14 | oddisa  | IT   |
++-------+----------+------------+------+------------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql> update employee set empid='E007' where age=42;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update employee set address='pune' where dept='Mech';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E001  | Girishaa | sha        |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | girishaa   |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | CSE  |
+| E007  | sastiwka | sas        |   21 | 2024-06-14 | oddisa  | IT   |
++-------+----------+------------+------+------------+---------+------+
+7 rows in set (0.00 sec)
+
+mysql> update employee set empid='E007' where age=42;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql>  update employee set age=42 where empid='E007';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set dept='mech' where address='pune';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E001  | Girishaa | sha        |   22 | 2022-09-22 | vsp     | DA   |
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | girishaa   |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | mech |
+| E007  | sastiwka | sas        |   42 | 2024-06-14 | oddisa  | IT   |
++-------+----------+------------+------+------------+---------+------+
+7 rows in set (0.00 sec)
+
+delete:
+========
+
+syntax: delete from table-name where condition;
+mysql> delete from employee where empid='E001';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| E004  | Shaa     | girishaa   |   20 | 2022-09-12 | vsp     | PS   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | mech |
+| E007  | sastiwka | sas        |   42 | 2024-06-14 | oddisa  | IT   |
++-------+----------+------------+------+------------+---------+------+
+6 rows in set (0.00 sec)
+
+mysql> delete from employee where fname='Shaa';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+------------+------+------------+---------+------+
+| empid | fname    | lname      | age  | doj        | address | dept |
++-------+----------+------------+------+------------+---------+------+
+| E002  | Mahesh   | Mahi       |   21 | 2022-03-12 | vsp     | DA   |
+| E003  | Aswini   | Ashu       |   23 | 2022-05-15 | vsp     | DA   |
+| NULL  | Girishaa | Thangavalu | NULL | 2004-05-12 | vsp     | DA   |
+| E006  | Nitish   | NULL       |   17 | NULL       | Pune    | mech |
+| E007  | sastiwka | sas        |   42 | 2024-06-14 | oddisa  | IT   |
++-------+----------+------------+------+------------+---------+------+
+5 rows in set (0.00 sec)
+truncate - helps to delete to remove the data or records but table structure will be.
+drop - entire table and records will be delete.
+
+
+mysql> truncate table employee;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from employee;
+Empty set (0.00 sec)
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 'da.employee' doesn't exist
+mysql> create table employees;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> create table employee(
+    -> EMPID INT,
+    -> CREATE TABLE EMPLOYEES(
+    -> EMPID INT AUTO_INCREMENT PRIMARY KEY,
+    -> NAME VARCHAR(100),
+    -> DEPARTMENT VARCHCHAR(50)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREATE TABLE EMPLOYEES(
+EMPID INT AUTO_INCREMENT PRIMARY KEY,
+NAME VARCHAR(100),' at line 3
+mysql> CREATE TABLE EMPLOYEES(
+    -> EMPID INT AUTO_INCREMENT PRIMARY KEY,
+    -> NAME VARCHAR(100),
+    -> DEPARTMENT VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE(NAME,DEPARTMENT)
+    -> VALUES
+    -> ('Girisha','CSD'),
+    -> ('Mahesh','CSE');
+ERROR 1146 (42S02): Table 'da.employee' doesn't exist
+mysql> INSERT INTO EMPLOYEES(NAME,DEPARTMENT)
+    -> values
+    -> ('Girisha','CSD'),
+    -> ('Mahesh','CSE');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc backupemployees;
+ERROR 1146 (42S02): Table 'da.backupemployees' doesn't exist
+mysql> select * from employees;
++-------+---------+------------+
+| EMPID | NAME    | DEPARTMENT |
++-------+---------+------------+
+|     1 | Girisha | CSD        |
+|     2 | Mahesh  | CSE        |
++-------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table backupemployees as
+    -> select * from employees;
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc backupemployees;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| EMPID      | int(11)      | NO   |     | 0       |       |
+| NAME       | varchar(100) | YES  |     | NULL    |       |
+| DEPARTMENT | varchar(50)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from backupemployees;
++-------+---------+------------+
+| EMPID | NAME    | DEPARTMENT |
++-------+---------+------------+
+|     1 | Girisha | CSD        |
+|     2 | Mahesh  | CSE        |
++-------+---------+------------+
+2 rows in set (0.00 sec)
+
+COMPUTED COLUMNS:
+==================
+mysql> CREATE TABLE EMPLOYEES(
+    -> EMPID INT AUTO_INCREMENT PRIMARY KEY,
+    -> NAME VARCHAR(100),
+    -> DEPARTMENT VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE(NAME,DEPARTMENT)
+    -> VALUES
+    -> ('Girisha','CSD'),
+    -> ('Mahesh','CSE');
+ERROR 1146 (42S02): Table 'da.employee' doesn't exist
+mysql> INSERT INTO EMPLOYEES(NAME,DEPARTMENT)
+    -> values
+    -> ('Girisha','CSD'),
+    -> ('Mahesh','CSE');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc backupemployees;
+ERROR 1146 (42S02): Table 'da.backupemployees' doesn't exist
+mysql> select * from employees;
++-------+---------+------------+
+| EMPID | NAME    | DEPARTMENT |
++-------+---------+------------+
+|     1 | Girisha | CSD        |
+|     2 | Mahesh  | CSE        |
++-------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table backupemployees as
+    -> select * from employees;
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc backupemployees;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| EMPID      | int(11)      | NO   |     | 0       |       |
+| NAME       | varchar(100) | YES  |     | NULL    |       |
+| DEPARTMENT | varchar(50)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from backupemployees;
++-------+---------+------------+
+| EMPID | NAME    | DEPARTMENT |
++-------+---------+------------+
+|     1 | Girisha | CSD        |
+|     2 | Mahesh  | CSE        |
++-------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create table products(
+    -> productid int primary key,
+    -> price decimal(10,2),
+    -> quantity int,
+    -> total(amount decimal(10,2) generated always as(price*quantity) stored
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(amount decimal(10,2) generated always as(price*quantity) stored
+)' at line 5
+mysql> create table products(
+    -> productid int primary key,
+    -> price decimal(10,2),
+    -> quantity int,
+    -> totalamount decimal(10,2) generated always as(price*quantity) stored
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into products(productid,price,quantity)
+    -> values
+    -> (1,50,3),
+    -> (2,100,25,6);
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+mysql> mysql> INSERT INTO PRODUCT(PROJUCTID, PRICE, QUANITITY)
+    ->     -> VALUES
+    ->     -> (1, 50,3),
+    ->     -> (2,100,25,6);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> INSERT INTO PRODUCT(PROJUCTID, PRICE, QUANITITY)
+    -> VALUES
+    -> (1,' at line 1
+mysql> ERROR 1146 (42S02): Table 'pfs3.product' doesn't exist
+    '> mysql> INSERT INTO PRODUCTS (PRODUCTID, PRICE, QUANTITY)
+    '>     -> VALUES
+    '>     -> (1, 50, 3),
+    '>     -> (2, 100, 25);
+    '> Query OK, 2 rows affected (0.03 sec)
+    '> Records: 2  Duplicates: 0  Warnings: 0
+    '>
+    '> mysql> SELECT*FROM PRODUCT;
+    '> ERROR 1146 (42S02): Table 'pfs3.product' doesn't exist
+    -> mysql> SELECT*FROM PRODUCTS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROR 1146 (42S02): Table 'pfs3.product' doesn't exist
+mysql> INSERT INTO PRODUC' at line 1
+mysql> +-----------+--------+----------+-------------+
+    -> | PRODUCTID | PRICE  | QUANTITY | TOTALAMOUNT |
+    -> +-----------+--------+----------+-------------+
+    -> |         1 |  50.00 |        3 |      150.00 |
+    -> |         2 | 100.00 |       25 |     2500.00 |
+    -> +-----------+--------+----------+-------------+
+    -> 2 rows in set (0.00 sec)
+    -> ^C
+mysql>
