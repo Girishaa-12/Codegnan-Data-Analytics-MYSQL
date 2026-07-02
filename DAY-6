@@ -1,0 +1,288 @@
+
+day - 6
+=============================================
+
+mysql> use jfs2
+Database changed
+mysql> create table students(
+-> ^C
+mysql> create table students(
+-> stdid varchar(10),
+-> sname varchar(30),
+-> mobile varchar(10)
+-> );
+mysql> INSERT INTO students VALUES
+-> ('1067', 'amani', '789276387'),
+-> ('1312', 'mahima', '78675678');
+Query OK, 2 rows affected (0.08 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+mysql> create user amani identified by 'jasc7777';
+Query OK, 0 rows affected (0.10 sec)
+mysql> create user mahi identified by 'glory123';
+Query OK, 0 rows affected (0.06 sec)
+mysql> grant select,update on students to amani;
+Query OK, 0 rows affected (0.02 sec)
+mysql> grant insert,update,delete on students to mahi;
+Query OK, 0 rows affected (0.07 sec)
+mysql> grant insert,update,delete,select on students to mahi;
+Query OK, 0 rows affected (0.06 sec)
+mysql> revoke update on students from 'amani';
+Query OK, 0 rows affected (0.05 sec)
+mysql> revoke delete on students from'mahi';
+Query OK, 0 rows affected (0.05 sec)
+mysql> select * from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amani | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
++-------+-------+-----------+
+3 rows in set (0.00 sec)
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+mysql> update students set sname = 'amu' where stdid = '1067';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amu   | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
++-------+-------+-----------+
+3 rows in set (0.00 sec)
+mysql> rollback;
+Query OK, 0 rows affected (0.05 sec)
+mysql> select * from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amani | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
++-------+-------+-----------+
+3 rows in set (0.00 sec)
+mysql> update students set sname = 'amu' where stdid = '1067';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+mysql> select * from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amu   | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
++-------+-------+-----------+
+3 rows in set (0.00 sec)
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+mysql> select * from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amu   | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
++-------+-------+-----------+
+3 rows in set (0.00 sec)
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+mysql> insert into students values('444','maneesha','3465767');
+Query OK, 1 row affected (0.00 sec)
+mysql> select * from students;
++-------+----------+-----------+
+| stdid | sname    | mobile    |
++-------+----------+-----------+
+| 1067  | amu      | 789276387 |
+| 1312  | glory    | 78675678  |
+| 333   | mani     | 454656    |
+| 444   | maneesha | 3465767   |
++-------+----------+-----------+
+4 rows in set (0.00 sec)
+mysql> update students set sname = 'amani' where stdid = '1067';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from students;
++-------+----------+-----------+
+| stdid | sname    | mobile    |
++-------+----------+-----------+
+| 1067  | amani    | 789276387 |
+| 1312  | glory    | 78675678  |
+| 333   | mani     | 454656    |
+| 444   | maneesha | 3465767   |
++-------+----------+-----------+
+4 rows in set (0.00 sec)
+mysql> delete from students where stdid = '333';
+Query OK, 1 row affected (0.00 sec)
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+mysql> select * from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amu   | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
++-------+-------+-----------+
+3 rows in set (0.00 sec)
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+mysql> insert into students values('555','swathi','3434657');
+Query OK, 1 row affected (0.00 sec)
+mysql> update students set sname = 'amani' where stdid = '1067';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+mysql> delete from students where stdid = '333';
+Query OK, 1 row affected (0.00 sec)
+mysql> select * from students;
++-------+--------+-----------+
+| stdid | sname  | mobile    |
++-------+--------+-----------+
+| 1067  | amani  | 789276387 |
+| 1312  | glory  | 78675678  |
+| 555   | swathi | 3434657   |
++-------+--------+-----------+
+3 rows in set (0.00 sec)
+mysql> rollback to sp1;
+Query OK, 0 rows affected (0.00 sec)
+mysql> select * from students;
++-------+--------+-----------+
+| stdid | sname  | mobile    |
++-------+--------+-----------+
+| 1067  | amani  | 789276387 |
+| 1312  | glory  | 78675678  |
+| 333   | mani   | 454656    |
+| 555   | swathi | 3434657   |
++-------+--------+-----------+
+4 rows in set (0.00 sec)
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+mysql> select * from students;
++-------+--------+-----------+
+| stdid | sname  | mobile    |
++-------+--------+-----------+
+| 1067  | amani  | 789276387 |
+| 1312  | glory  | 78675678  |
+| 333   | mani   | 454656    |
+| 555   | swathi | 3434657   |
++-------+--------+-----------+
+4 rows in set (0.00 sec)
+mysql> --lock
+-> C
+-> ^C
+mysql> -- lock
+mysql> -- 1. set transaction isolation level read committed
+mysql> set transaction isolation level read committed;
+Query OK, 0 rows affected (0.01 sec)
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+mysql> select * from students where stdid = '1067' for update;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amani | 789276387 |
++-------+-------+-----------+
+1 row in set (0.01 sec)
+mysql> update students set sname = 'amani sai ' where stdid = '1067';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+mysql> select *from students;
++-------+------------+-----------+
+| stdid | sname      | mobile    |
++-------+------------+-----------+
+| 1067  | amani sai  | 789276387 |
+| 1312  | glory      | 78675678  |
+| 333   | mani       | 454656    |
+| 555   | swathi     | 3434657   |
++-------+------------+-----------+
+4 rows in set (0.00 sec)
+Microsoft Windows [Version 10.0.26200.8655]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u amani -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use jfs2;
+Database changed
+mysql> select *from students;
++-------+--------+-----------+
+| stdid | sname  | mobile    |
++-------+--------+-----------+
+| 1067  | amani  | 789276387 |
+| 1312  | mahima | 78675678  |
++-------+--------+-----------+
+2 rows in set (0.05 sec)
+
+mysql> update students set sname = 'glory' where stdid = '1312';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amani | 789276387 |
+| 1312  | glory | 78675678  |
++-------+-------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from students where stdid = '1312';
+ERROR 1142 (42000): DELETE command denied to user 'amani'@'localhost' for table 'students'
+mysql> drop table students;
+ERROR 1142 (42000): DROP command denied to user 'amani'@'localhost' for table 'students'
+mysql> select *from students;
++-------+-------+-----------+
+| stdid | sname | mobile    |
++-------+-------+-----------+
+| 1067  | amani | 789276387 |
+| 1312  | glory | 78675678  |
+| 333   | mani  | 454656    |
+| 343   | janu  | 545656    |
++-------+-------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> update students set sname = 'glory' where stdid = '1312';
+ERROR 1142 (42000): UPDATE command denied to user 'amani'@'localhost' for table 'students'
+mysql>
+
+
+Transaction:
+---------------
+a transaction is a sequence of one or more sql operations executed as a single logical unitofwork. it ensure either all operations are completely successfully or then are applied to the database.
+
+
+Interview
+--------------
+A transaction is a logical unit of work consisting one or more sql statements that fallows the ACID properites to maintain data integrity and consistency
+
+ACID properties
+------------------
+Atomicity: either all operations happen or none happen.
+consistency: the database remains in a valid state before and after the transaction.
+Isolated: concurrent transactions do not interface with each other.
+Durability: once committed changes are permanent even if the  system crashes
+
+TCL Commands
+=============
+commit
+rollback
+save point
