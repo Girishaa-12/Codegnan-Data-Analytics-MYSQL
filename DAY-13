@@ -1,0 +1,314 @@
+mysql> --INNER JOIN^C
+mysql> SELECT * FROM DEPARTMENT
+    -> INNER JOIN EMPLOYEES
+    -> ON
+    -> DEPARTMENT.DEPARTMENT_ID=EMPLOYEES.DEPARTMENT_ID;
+ERROR 1054 (42S22): Unknown column 'DEPARTMENT.DEPARTMENT_ID' in 'on clause'
+mysql> SELECT *
+    -> FROM DEPARTMENT
+    -> INNER JOIN EMPLOYEES
+    -> ON DEPARTMENT.DEPARTMENT_ID = EMPLOYEES.DEPARTMENT_ID;
+ERROR 1054 (42S22): Unknown column 'DEPARTMENT.DEPARTMENT_ID' in 'on clause'
+mysql> SELECT E.EMP_ID,
+    -> E.ENAME,D.DEPARTMENT_NAME
+    -> FROM EMPLOYEES E
+    -> INNER JOIN DEPARTMENTS D
+    -> ON
+    -> E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+ERROR 1054 (42S22): Unknown column 'E.ENAME' in 'field list'
+mysql> SELECT E.EMP_ID,
+    -> E.NAME,D.DEPARTMENT_NAME
+    -> INNER JOIN DEPARTMENTS D
+    -> ON
+    -> E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INNER JOIN DEPARTMENTS D
+ON
+E.DEPARTMENT_ID = D.DEPARTMENT_ID' at line 3
+mysql> select employees.emp_id, employees.name, departments.department_name from employees left join departments on employees.department_id=departments.department_id;
++--------+---------+-----------------+
+| emp_id | name    | department_name |
++--------+---------+-----------------+
+|    101 | Arjun   | Human Resources |
+|    102 | Bhavana | Engineering     |
+|    103 | Charan  | Engineering     |
+|    104 | Divya   | Marketing       |
+|    105 | Eswar   | NULL            |
+|    106 | Farhan  | Finance         |
+|    107 | Gowri   | Engineering     |
+|    108 | Harish  | Operations      |
+|    109 | Ishita  | NULL            |
+|    110 | Jagan   | Marketing       |
++--------+---------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> select employees.emp_id, employees.name, departments.department_name from employees inner join departments on employees.department_id=departments.department_id;
++--------+---------+-----------------+
+| emp_id | name    | department_name |
++--------+---------+-----------------+
+|    101 | Arjun   | Human Resources |
+|    102 | Bhavana | Engineering     |
+|    103 | Charan  | Engineering     |
+|    104 | Divya   | Marketing       |
+|    106 | Farhan  | Finance         |
+|    107 | Gowri   | Engineering     |
+|    108 | Harish  | Operations      |
+|    110 | Jagan   | Marketing       |
++--------+---------+-----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT E.EMP_ID,E.NAME
+    -> FROM EMPLOYEES E
+    -> INNER JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID;
++--------+---------+
+| EMP_ID | NAME    |
++--------+---------+
+|    102 | Bhavana |
+|    103 | Charan  |
+|    104 | Divya   |
+|    106 | Farhan  |
+|    107 | Gowri   |
+|    110 | Jagan   |
++--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> INNER JOIN PROJECTS P
+    -> ON E.EMP_ID = P.EMP_ID;
++---------+----------------------+
+| NAME    | PROJECT_NAME         |
++---------+----------------------+
+| Bhavana | Website Redesign     |
+| Charan  | Mobile Banking App   |
+| Divya   | Marketing Campaign   |
+| Farhan  | Payroll System       |
+| Gowri   | Backend Optimization |
+| Bhavana | Cloud Migration      |
+| Jagan   | Customer Analytics   |
++---------+----------------------+
+7 rows in set (0.00 sec)
+
+mysql> --LEFT JOIN^C
+mysql> SELECT E.EMP_ID,E.NAME,D,DEPARTMENT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN
+    -> DEPARTMENT D
+    -> ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+ERROR 1054 (42S22): Unknown column 'D' in 'field list'
+mysql> SELECT E.EMP_ID,E.NAME,D.DEPARTMENT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN
+    -> DEPARTMENT D
+    -> ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+ERROR 1054 (42S22): Unknown column 'D.DEPARTMENT_NAME' in 'field list'
+mysql> SELECT E.EMP_ID,E.NAME,D.DEPARTMENT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN
+    -> DEPARTMENTS D
+    -> ON E.DEPARTMENT_ID=D.DEPARTMENT_ID;
++--------+---------+-----------------+
+| EMP_ID | NAME    | DEPARTMENT_NAME |
++--------+---------+-----------------+
+|    101 | Arjun   | Human Resources |
+|    102 | Bhavana | Engineering     |
+|    103 | Charan  | Engineering     |
+|    104 | Divya   | Marketing       |
+|    105 | Eswar   | NULL            |
+|    106 | Farhan  | Finance         |
+|    107 | Gowri   | Engineering     |
+|    108 | Harish  | Operations      |
+|    109 | Ishita  | NULL            |
+|    110 | Jagan   | Marketing       |
++--------+---------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID;
++---------+----------------------+
+| NAME    | PROJECT_NAME         |
++---------+----------------------+
+| Bhavana | Website Redesign     |
+| Charan  | Mobile Banking App   |
+| Divya   | Marketing Campaign   |
+| Farhan  | Payroll System       |
+| Gowri   | Backend Optimization |
+| Bhavana | Cloud Migration      |
+| Jagan   | Customer Analytics   |
+| Arjun   | NULL                 |
+| Eswar   | NULL                 |
+| Harish  | NULL                 |
+| Ishita  | NULL                 |
++---------+----------------------+
+11 rows in set (0.01 sec)
+
+mysql> SELECT D.DEPARTMENT
+    -> ^C
+mysql> SELECT D.DEPARTMENT_NAME,E.NAME
+    -> FROM DEPARTMENTS D
+    -> LEFT JOIN EMPLOYEES E
+    -> ON D.DEPARTMENTS_ID=E.DEPARTMENT_ID;
+ERROR 1054 (42S22): Unknown column 'D.DEPARTMENTS_ID' in 'on clause'
+mysql> SELECT D.DEPARTMENT_NAME,E.NAME
+    -> FROM DEPARTMENTS D
+    -> LEFT JOIN EMPLOYEES E
+    -> ON D.DEPARTMENT_ID=E.DEPARTMENT_ID;
++-----------------+---------+
+| DEPARTMENT_NAME | NAME    |
++-----------------+---------+
+| Human Resources | Arjun   |
+| Engineering     | Bhavana |
+| Engineering     | Charan  |
+| Marketing       | Divya   |
+| Finance         | Farhan  |
+| Engineering     | Gowri   |
+| Operations      | Harish  |
+| Marketing       | Jagan   |
++-----------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> --RIGHT JOIN^C
+mysql> SELECT D.DEPARTMENT_NAME,E.NAME
+    -> FROM EMPLOYEES E
+    -> RIGHT JOIN DEPARTMENTS D
+    -> ON E.DEPARTMENT_ID=D.DEPARTMENT_ID;
++-----------------+---------+
+| DEPARTMENT_NAME | NAME    |
++-----------------+---------+
+| Human Resources | Arjun   |
+| Engineering     | Bhavana |
+| Engineering     | Charan  |
+| Marketing       | Divya   |
+| Finance         | Farhan  |
+| Engineering     | Gowri   |
+| Operations      | Harish  |
+| Marketing       | Jagan   |
++-----------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT P.PROJECT_NAME,E.NAME
+    -> FROM EMPLOYEES E
+    -> RIGHT JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID;
++----------------------+---------+
+| PROJECT_NAME         | NAME    |
++----------------------+---------+
+| Website Redesign     | Bhavana |
+| Mobile Banking App   | Charan  |
+| Marketing Campaign   | Divya   |
+| Payroll System       | Farhan  |
+| Backend Optimization | Gowri   |
+| Cloud Migration      | Bhavana |
+| Customer Analytics   | Jagan   |
+| Inventory System     | NULL    |
++----------------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT E.NAME,D.DEPARTMENT_NAME
+    -> FROM DEPARTMENST D
+    -> RIGHT JOIN EMPLOYEES E
+    -> ON D.DEPARTMENT_ID = E.DEPARTMENT_ID;
+ERROR 1146 (42S02): Table 'da3.departmenst' doesn't exist
+mysql> SELECT E.NAME,D.DEPARTMENT_NAME
+    -> FROM DEPARTMENTS D
+    -> RIGHT JOIN EMPLOYEES E
+    -> ON D.DEPARTMENT_ID = E.DEPARTMENT_ID;
++---------+-----------------+
+| NAME    | DEPARTMENT_NAME |
++---------+-----------------+
+| Arjun   | Human Resources |
+| Bhavana | Engineering     |
+| Charan  | Engineering     |
+| Divya   | Marketing       |
+| Eswar   | NULL            |
+| Farhan  | Finance         |
+| Gowri   | Engineering     |
+| Harish  | Operations      |
+| Ishita  | NULL            |
+| Jagan   | Marketing       |
++---------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT E.NAME,D.DEPARTMENT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN DEPARTMENTS D
+    -> ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    -> UNION
+    -> SELECT E.NAME,D.DEPARTMENT_NAME
+    -> FROM EMPLOYEES E
+    -> RIGHT JOIN DEPARTMENTS D
+    -> ON E.DEPARTMENT_ID=D.DEPARTMENT_ID;
++---------+-----------------+
+| NAME    | DEPARTMENT_NAME |
++---------+-----------------+
+| Arjun   | Human Resources |
+| Bhavana | Engineering     |
+| Charan  | Engineering     |
+| Divya   | Marketing       |
+| Eswar   | NULL            |
+| Farhan  | Finance         |
+| Gowri   | Engineering     |
+| Harish  | Operations      |
+| Ishita  | NULL            |
+| Jagan   | Marketing       |
++---------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID
+    -> UNION
+    -> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> RIGHT JOIN PROJECTS P
+    -> ON E.EMP_ID=O.EMP_ID;
+ERROR 1054 (42S22): Unknown column 'O.EMP_ID' in 'on clause'
+mysql> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> LEFT JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID
+    -> UNION
+    -> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> RIGHT JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID;
++---------+----------------------+
+| NAME    | PROJECT_NAME         |
++---------+----------------------+
+| Bhavana | Website Redesign     |
+| Charan  | Mobile Banking App   |
+| Divya   | Marketing Campaign   |
+| Farhan  | Payroll System       |
+| Gowri   | Backend Optimization |
+| Bhavana | Cloud Migration      |
+| Jagan   | Customer Analytics   |
+| Arjun   | NULL                 |
+| Eswar   | NULL                 |
+| Harish  | NULL                 |
+| Ishita  | NULL                 |
+| NULL    | Inventory System     |
++---------+----------------------+
+12 rows in set (0.00 sec)
+
+mysql> --JOIN+GROUP BY^C
+mysql> SELECT D.DEPARTMENT_NAME,
+    -> COUNT(E.EMP_ID)AS TOTAL_EMPLOYEES
+    -> FROM DEPARTMENTS D
+    -> LEFT JOIN EMPLOYEES E
+    -> ON D.DEPARTMENT_ID=E.DEPARTMENT_ID
+    -> GROUP BY D.DEPARTMENT_NAME;
++-----------------+-----------------+
+| DEPARTMENT_NAME | TOTAL_EMPLOYEES |
++-----------------+-----------------+
+| Human Resources |               1 |
+| Engineering     |               3 |
+| Marketing       |               2 |
+| Finance         |               1 |
+| Operations      |               1 |
++-----------------+-----------------+
+5 rows in set (0.01 sec)
+
+mysql>
