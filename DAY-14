@@ -1,0 +1,324 @@
+DAY-14
+===========
+
+mysql> tee D:MYSQL\sql.txt
+Logging to file 'D:MYSQL\sql.txt'
+mysql> use da3;
+Database changed
+mysql> select * from employees;
++--------+---------+---------------+----------+
+| emp_id | name    | department_id | salary   |
++--------+---------+---------------+----------+
+|    101 | Arjun   |             1 | 50000.00 |
+|    102 | Bhavana |             2 | 65000.00 |
+|    103 | Charan  |             2 | 72000.00 |
+|    104 | Divya   |             3 | 45000.00 |
+|    105 | Eswar   |          NULL | 40000.00 |
+|    106 | Farhan  |             4 | 55000.00 |
+|    107 | Gowri   |             2 | 62000.00 |
+|    108 | Harish  |             5 | 48000.00 |
+|    109 | Ishita  |          NULL | 53000.00 |
+|    110 | Jagan   |             3 | 60000.00 |
++--------+---------+---------------+----------+
+10 rows in set (0.02 sec)
+
+mysql> select * from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | HR        |
+|       2 | IT        |
+|       3 | Finance   |
++---------+-----------+
+3 rows in set (0.03 sec)
+
+mysql> select * from departments;
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+|             1 | Human Resources |
+|             2 | Engineering     |
+|             3 | Marketing       |
+|             4 | Finance         |
+|             5 | Operations      |
++---------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from projects;
++------------+----------------------+--------+
+| project_id | project_name         | emp_id |
++------------+----------------------+--------+
+|        201 | Website Redesign     |    102 |
+|        202 | Mobile Banking App   |    103 |
+|        203 | Marketing Campaign   |    104 |
+|        204 | Payroll System       |    106 |
+|        205 | Backend Optimization |    107 |
+|        206 | Cloud Migration      |    102 |
+|        207 | Customer Analytics   |    110 |
+|        208 | Inventory System     |   NULL |
++------------+----------------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select e.name,d.department_name,e.salary
+    -> from employees e
+    -> inner join departments d
+    -> on e.department_id=d.department_id
+    -> order by e.salary desc;
++---------+-----------------+----------+
+| name    | department_name | salary   |
++---------+-----------------+----------+
+| Charan  | Engineering     | 72000.00 |
+| Bhavana | Engineering     | 65000.00 |
+| Gowri   | Engineering     | 62000.00 |
+| Jagan   | Marketing       | 60000.00 |
+| Farhan  | Finance         | 55000.00 |
+| Arjun   | Human Resources | 50000.00 |
+| Harish  | Operations      | 48000.00 |
+| Divya   | Marketing       | 45000.00 |
++---------+-----------------+----------+
+8 rows in set (0.01 sec)
+
+mysql> --show employee names and prjct names,order by ^C
+mysql> SELECT E.NAME,P,PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> INNER JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID
+    -> ORDER BY E.NAME;
+ERROR 1054 (42S22): Unknown column 'P' in 'field list'
+mysql> SELECT E.NAME,P.PROJECT_NAME
+    -> FROM EMPLOYEES E
+    -> INNER JOIN PROJECTS P
+    -> ON E.EMP_ID=P.EMP_ID
+    -> ORDER BY E.NAME;
++---------+----------------------+
+| NAME    | PROJECT_NAME         |
++---------+----------------------+
+| Bhavana | Website Redesign     |
+| Bhavana | Cloud Migration      |
+| Charan  | Mobile Banking App   |
+| Divya   | Marketing Campaign   |
+| Farhan  | Payroll System       |
+| Gowri   | Backend Optimization |
+| Jagan   | Customer Analytics   |
++---------+----------------------+
+7 rows in set (0.01 sec
+
+mysql> ^C
+mysql> SELECT D.DEPARTMENT_NAME,COUNT(E.EMP_ID) AS EMPLOYEE_COUNT
+    -> FROM DEPARTMENTS D
+    -> LEFT JOIN EMPLOYEES E ON D.DEPARTMENT_ID=E.DEPARTMENT_ID
+    -> GROUP BY D.DEPARTMENT_NAME
+    -> ORDER BY EMPLOYEE_COUNT DESC;
++-----------------+----------------+
+| DEPARTMENT_NAME | EMPLOYEE_COUNT |
++-----------------+----------------+
+| Engineering     |              3 |
+| Marketing       |              2 |
+| Finance         |              1 |
+| Operations      |              1 |
+| Human Resources |              1 |
++-----------------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> --JOIN + GROUP BY + HAVING + ORDER BY^C
+mysql> SELECT D.DEPARTMENT_NAME,COUNT(E.EMP_ID) AS EMPLOYEE_COUNT
+    -> FROM DEPARTMENTS D
+    -> LEFT JOIN EMPLOYEES E ON D.DEPARTMENT_ID=E.DEPARTMENT_ID
+    -> GROUP BY D.DEPARTMENT_NAME
+    -> HAVING EMPLOYEE_COUNT > 1
+    -> ORDER BY EMPLOYEE_COUNT DESC;
++-----------------+----------------+
+| DEPARTMENT_NAME | EMPLOYEE_COUNT |
++-----------------+----------------+
+| Engineering     |              3 |
+| Marketing       |              2 |
++-----------------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT E.NAME,COUNT(P.PROJECT_ID) AS PROJECT_COUNT
+    -> FROM EMPLOYEES E
+    -> JOIN PROJECTS P ON E.EMP_ID = P.EMP_ID
+    -> GROUP BY E.NAME
+    -> HAVING PROJECT_COUNT > 1
+    -> ORDER BY PROJECT_COUNT DESC;
++---------+---------------+
+| NAME    | PROJECT_COUNT |
++---------+---------------+
+| Bhavana |             2 |
++---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> ^C
+mysql> SELECT D.DEPARTMENT_ID,SUM(E.SALARY) AS TOTAL_SALARY
+    -> FROM EMPLOYEES E
+    -> ^C
+mysql> SELECT D.DEPARTMENT_NAME,SUM(E.SALARY) AS TOTAL_SALARY
+    -> FROM DEPARTMENTS D
+    -> JOIN EMPLOYEES E ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
+    -> GROUP BY D.DEPARTMENT_NAME
+    -> HAVING TOTAL_SALARY > 50000
+    -> ORDER BY TOTAL_SALARY DESC;
++-----------------+--------------+
+| DEPARTMENT_NAME | TOTAL_SALARY |
++-----------------+--------------+
+| Engineering     |    199000.00 |
+| Marketing       |    105000.00 |
+| Finance         |     55000.00 |
++-----------------+--------------+
+3 rows in set (0.01 sec)
+
+*QUERIES AN SUB-QUERIES:
+========================
+
+SUB-QUERY:
+-------------- 
+a sub query is a query inside another query,it is written inside paranthesis() and its result is used by the outer query.
+it is also called as 
+inner query, 
+nested query or 
+inner select 
+
+general syntax:
+------------------------
+select column=list
+from table 
+where column operator(select column from table where condition)
+
+purpose:
+----------
+
+to breakdown complex problems into smaller queries.
+to use the result of one query as input to another to avoid multiple steps(writr a single query insted of temp tables)
+
+types:
+------------
+1.single row sub query
+2.multi row sub queries with ANY/SOME
+3.multi-row sub queries with ALL
+4.nested sub query
+5.co-releated sub query
+6.exits.not-exits sub query
+
+1.SINGLE=ROW SUB QUERY:
+------------------------
+a single row sub query returns exactly one row and one column, they use comparision opertaors like =,>,<,>=,<=
+
+characteristics:
+------------------------
+1.returns only one value
+2.can use single value comparison operators
+3.if sub query returns no rows or multiple row it causes errors
+
+syntax:
+------------
+select columns
+from table
+where columns operator(select column from table where condition).
+
+2.Multi row sub queries with(any/some):
+-----------------------
+a multi row sub queries returns multiple rows when using any or some, if the condition is true if it matches atleast one value it returns by the sub query 
+
+characteristics:
+---------------------
+it returns multiple values
+any and some are interchangeable
+if condition is true if any of the values satisfy the condition 
+often used WITH IN,>ANY OR <ANY OR >= ANY,<=ANY.
+
+SYNTAX:
+------------------
+select column from table
+where column operator any/some(select column from table where condition)
+
+3.multi-row sub queries with ALL:
+----------------------------------
+the all operator means the condition must be true for ALL values returned by the sub-query 
+
+characteristics:
+---------------------
+the condition must be true for all values in the sub query result
+often use with <ALL,>ALL,>=ALL,<=ALL
+>ALL MEANS-GREATER THAN MAX VALUE
+<ALL- LESS THAN MIN VALUE
+
+SYNTAX:
+-------------
+SELECT COLUMNS 
+FROM TABLE
+WHERE COLUMN OPERATOR ALL(SELECT COLUMN FROM TABLE WHERE CONDITION) 
+
+4.NESTED SUB-QUERY:
+--------------------
+nested sub queries are subqueries within sub queies they can be multiple levels deep and are executed from the inner most to the outer most.
+
+characteristics:
+-----------------
+multiple levels of nesting anything
+inner queries execute first
+can combine diff types of sub queries
+useful for complex conditions 
+
+syntax:
+-------------
+select column-list 
+from table 
+where column=(select column 
+                from table 
+                 where column = (select column 
+                                  from table 
+                                    where condition));
+
+5.co-related sub query:
+------------------------
+co-related sub queries are subqueries that references columns from outer query unlike regular sub queries that execute once, co related subqueries excutes once for each row process by the outer query.
+
+characteristics:
+---------------------
+
+reference columns from the outer query
+executes multiple times(once per outer row)
+cannot br executed independently
+often use with exit.not exit
+generally slower than non-correlated sub queries 
+
+syntax:
+-------------
+select columns
+from table1 outer_alias
+where condition(select column 
+            from table2 inner_alias 
+                 where inner_alias.column =outer_alias.column).]
+
+6.Exits.Not-Exits sub query:
+-----------------------------------
+Exits is used to test whether a subquery return any rows.it returns true if the subquery returns at least one row,false otherwise not exits returns true
+if the subquery returns no rows.
+
+Characteristics
+------------------
+returns true or false(Boolean result).
+more efficient than IN for larger data sets.
+often used with corelated subqueries.
+stop execution as soon as the first match is the found.
+select clause in exists doesn't matter (often use select 1).
+
+syntax:
+---------
+Exits
+------
+select columns
+from table1 
+where exits(select 1 from table 2 where condition).
+
+Not-exits
+----------
+select columns
+from table1
+where not exits(select 1 from table 2 where condition).
+
+
+
