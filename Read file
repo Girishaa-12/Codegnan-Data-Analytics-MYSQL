@@ -1,0 +1,128 @@
+# 🏦 Bank Management System (MySQL)
+
+## 📌 Project Overview
+
+This project is a **Bank Management System** developed using MySQL. It demonstrates how to design and manage a relational database for banking operations such as branches, customers, employees, accounts, and loans.
+
+---
+
+## 🗄️ Database Name
+
+**bank_system**
+
+---
+
+## 📊 Tables Created
+
+### 1. Branches
+
+* BranchID (Primary Key)
+* BranchName
+* City
+
+### 2. Customers
+
+* CustomerID (Primary Key)
+* Name
+* Age
+* Phone
+* Address
+
+### 3. Employees
+
+* EmployeeID (Primary Key)
+* Name
+* Position
+* Salary
+* BranchID (Foreign Key)
+
+### 4. Accounts
+
+* AccountID (Primary Key)
+* CustomerID (Foreign Key)
+* BranchID (Foreign Key)
+* AccountType
+* Balance
+
+### 5. Loans
+
+* LoanID (Primary Key)
+* CustomerID (Foreign Key)
+* BranchID (Foreign Key)
+* LoanAmount
+* InterestRate
+* LoanStatus
+
+---
+
+## 🔗 Relationships
+
+* One **branch** can have multiple employees and accounts
+* One **customer** can have multiple accounts and loans
+* Foreign keys are used to maintain data integrity
+
+---
+
+## 📥 Data Inserted
+
+* 50 Branch records across different cities
+* 50 Customer records with personal details
+* Employee records linked to branches
+* Structured data for accounts and loans
+
+---
+
+## ⚙️ Features Implemented
+
+* Database creation and table design
+* Use of primary and foreign keys
+* Data insertion and retrieval
+* Real-world banking structure simulation
+
+---
+
+## 🧠 SQL Queries Performed
+
+### 🟢 Easy Queries
+
+* Retrieve all customers
+* Display account details
+* Filter customers by city
+* Show employees with salary > specific value
+* Sort accounts by balance
+
+---
+
+### 🟡 Medium Queries
+
+* INNER JOIN between customers and accounts
+* Retrieve accounts with branch details
+* Find total balance using aggregate functions
+* GROUP BY to count customers per branch
+* Filter using HAVING clause
+
+---
+
+### 🔴 Hard Queries
+
+* Subqueries to find customers with highest balance
+* Multiple JOINs across customers, accounts, and branches
+* Complex filtering using nested queries
+* Aggregate analysis (max, min, avg balances)
+* Loan status analysis with conditions
+
+---
+
+## 💡 Skills Demonstrated
+
+* SQL (DDL & DML commands)
+* Joins and Subqueries
+* Aggregate functions and filtering
+* Database design and normalization
+* Real-world problem solving using SQL
+
+---
+
+## 🚀 Conclusion
+
+This project helped me understand real-world database design and improved my SQL skills through hands-on practice with structured banking data and complex queries.
